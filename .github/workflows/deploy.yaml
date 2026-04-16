@@ -22,3 +22,13 @@ jobs:
 
       - name: Compile binary
         run: go build -o myapp
+    id: compile
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: run tests
+        id: run_tests
+        run: go test ./...
+      - name: compile binary
+        uses: jobs.compile
+        if: steps.run_tests.outcome == 'success'
